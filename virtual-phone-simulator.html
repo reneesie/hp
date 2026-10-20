@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111116">
+<title>Virtual Phone Studio</title>
+<style>
+*{box-sizing:border-box} :root{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#19191f;background:#f3f2f7;font-synthesis:none}body{margin:0;min-height:100vh}.studio{max-width:1220px;margin:auto;padding:26px 28px 18px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.eyebrow{font-size:10px;letter-spacing:.19em;font-weight:800;color:#85818e;margin:0 0 7px}.topbar h1{font-size:clamp(24px,4vw,34px);letter-spacing:-.045em;margin:0}.workspace{display:grid;grid-template-columns:minmax(280px,430px) minmax(300px,1fr);gap:36px;align-items:start}.phone-column{display:flex;align-items:center;flex-direction:column;position:sticky;top:16px}.phone{width:min(100%,350px);padding:9px;border-radius:52px;background:linear-gradient(140deg,#34343a,#050506 35%,#29292e);box-shadow:0 30px 70px #28243832, inset 0 0 0 1px #777}.screen{height:700px;max-height:calc(100vh - 120px);min-height:560px;border-radius:43px;overflow:hidden;position:relative;background:#e9e7ee;background-size:cover;background-position:center;color:#17171c;isolation:isolate}.wallpaper-shade{position:absolute;inset:0;background:linear-gradient(180deg,#0000000b,#00000008 45%,#00000016);z-index:-1}.statusbar{height:48px;padding:13px 24px 0;display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:750;position:relative;z-index:3;color:var(--status-color,#19191f)}.dynamic-island{position:absolute;width:90px;height:25px;border-radius:18px;background:#09090c;top:7px;left:50%;transform:translateX(-50%)}.status-icons{font-size:10px;letter-spacing:1px}.app-view{position:absolute;inset:49px 0 22px;overflow:hidden}.home-indicator{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);height:4px;width:110px;border-radius:10px;background:var(--indicator,#19191f);z-index:20}.phone-hint{font-size:12px;color:#85818e;text-align:center;max-width:320px;line-height:1.5}.editor{background:#fff;border:1px solid #e8e5ed;border-radius:25px;padding:25px;box-shadow:0 12px 40px #2824380b}.editor-heading h2{font-size:22px;letter-spacing:-.035em;margin:0 0 7px}.editor-heading p:last-child{font-size:13px;color:#777482;line-height:1.55;margin:0 0 22px}.control-group{padding:16px 0;border-top:1px solid #f0edf3;display:flex;flex-direction:column;gap:9px}.control-group label{font-size:12px;font-weight:750;color:#474451}.control-group input:not([type=file]),.control-group select,.control-group textarea{font:inherit;font-size:13px;width:100%;padding:11px 12px;border:1px solid #e5e1eb;border-radius:11px;background:#fbfafc;color:#25232c;outline:none}.control-group input:focus,.control-group textarea:focus,.control-group select:focus{border-color:#a99add;box-shadow:0 0 0 3px #a99add20}.control-group input[type=file]{font-size:12px;width:100%;color:#777482}.control-group textarea{resize:vertical}.primary,.secondary,.quiet-button{border:0;border-radius:10px;padding:11px 13px;font-weight:700;font-size:12px;cursor:pointer}.primary{background:#292630;color:white}.secondary{background:#f0edf6;color:#514a62}.quiet-button{background:#e8e4f1;color:#4b435d}.inline-controls{display:grid;grid-template-columns:100px 1fr;gap:7px}.message-manager{display:flex;flex-direction:column;gap:7px}.message-row{display:flex;align-items:center;gap:8px;background:#f8f6fa;padding:8px;border-radius:10px;font-size:12px}.message-row span{flex:1;overflow-wrap:anywhere}.message-row small{color:#827d8c;white-space:nowrap}.message-row button{border:0;background:#eee9f2;border-radius:7px;padding:5px 8px;cursor:pointer;color:#65566e}.privacy-note{font-size:11px;line-height:1.5;color:#898492;background:#faf8fc;border-radius:12px;padding:12px;margin:4px 0 0}footer{text-align:center;color:#9994a2;font-size:11px;padding:25px 0 0}
+/* phone UI */
+.home-screen{height:100%;padding:12px 16px 14px;display:flex;flex-direction:column;justify-content:space-between;color:white;text-shadow:0 1px 8px #0004}.date-widget{font-size:13px;font-weight:600;margin:5px 0 4px}.big-clock{font-size:52px;line-height:1.05;font-weight:250;letter-spacing:-.06em}.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:19px 10px;margin:28px 0 auto}.app-icon-wrap{display:flex;align-items:center;flex-direction:column;gap:6px;min-width:0;cursor:pointer;text-shadow:0 1px 5px #0008}.app-icon{width:49px;height:49px;border-radius:14px;display:grid;place-items:center;font-size:25px;box-shadow:0 4px 10px #0002;text-shadow:none;user-select:none}.app-label{font-size:10px;text-align:center;white-space:nowrap}.dock{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;background:#ffffff42;backdrop-filter:blur(16px);padding:10px;border-radius:23px;margin-top:20px}.dock .app-icon-wrap{gap:0}.dock .app-label{display:none}.dock .app-icon{width:47px;height:47px}.app-shell{height:100%;display:flex;flex-direction:column;background:var(--app-bg,#f8f7fa);color:var(--app-text,#22212a);text-shadow:none}.app-nav{height:47px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0}.back-btn,.nav-action{border:0;background:transparent;color:var(--accent,#7356b7);font-size:13px;font-weight:650;cursor:pointer;padding:5px}.app-title{font-size:16px;font-weight:750}.app-content{overflow:auto;flex:1;padding:12px 15px 20px}.subtle{font-size:12px;color:var(--muted,#8b8792)}.chat-head{display:flex;align-items:center;gap:10px;padding:6px 2px 13px;border-bottom:1px solid var(--line,#e6e2e9)}.avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;background:#d9cde9;display:grid;place-items:center;font-size:18px;flex-shrink:0}.chat-title{font-size:14px;font-weight:750}.chat-status{font-size:11px;color:#88818f;margin-top:3px}.chat-body{display:flex;flex-direction:column;gap:8px;padding:16px 2px;min-height:380px;background-size:cover;background-position:center;border-radius:12px}.bubble{max-width:82%;padding:9px 12px;border-radius:18px;font-size:13px;line-height:1.35;overflow-wrap:anywhere;box-shadow:0 1px 2px #0000000a}.bubble.them{align-self:flex-start;background:var(--bubble-them,#e9e6ee);border-bottom-left-radius:5px}.bubble.me{align-self:flex-end;background:var(--bubble-me,#a9e5bd);border-bottom-right-radius:5px}.bubble-time{display:block;font-size:9px;text-align:right;opacity:.62;margin-top:4px}.chat-composer{display:flex;gap:7px;padding:10px 0 3px}.chat-composer input{min-width:0;flex:1;border:1px solid var(--line,#e6e2e9);border-radius:18px;padding:10px;background:var(--input-bg,#fff);color:inherit}.chat-composer button{border:0;border-radius:50%;width:38px;background:var(--accent,#7356b7);color:white;font-size:19px}.app-card{background:var(--card,#fff);border:1px solid var(--line,#e9e5ee);border-radius:15px;padding:13px;margin-bottom:10px}.app-card h3{font-size:14px;margin:0 0 7px}.app-card p{font-size:12px;line-height:1.5;margin:0;color:var(--muted,#777280)}.note-page{background:#fff4bd;border-radius:14px;padding:16px;min-height:240px;box-shadow:0 5px 15px #0000000a}.note-page h3{margin:0 0 12px;font-size:20px}.note-page p{white-space:pre-wrap;font-size:14px;line-height:1.55;margin:0}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.photo-tile{aspect-ratio:1;background:linear-gradient(135deg,#e4d5f2,#f7d9df);border-radius:5px;display:grid;place-items:center;font-size:23px}.settings-row{padding:14px 2px;border-bottom:1px solid var(--line,#e8e4ec);display:flex;justify-content:space-between;font-size:13px}.social-header{font-weight:850;font-size:22px;letter-spacing:-1px;padding:4px 0 14px}.story-row{display:flex;gap:11px;overflow:auto;padding-bottom:15px}.story{min-width:52px;text-align:center;font-size:10px}.story .avatar{width:49px;height:49px;margin-bottom:5px;border:2px solid #d96b91}.post{border:1px solid var(--line,#e9e5ee);border-radius:12px;overflow:hidden;margin-bottom:14px}.post-head{display:flex;align-items:center;gap:8px;padding:9px;font-size:12px;font-weight:700}.post-art{aspect-ratio:1;background:linear-gradient(140deg,#e6a6a6,#f6d5b8 50%,#a3b6cb);display:grid;place-items:center;font-size:52px}.post-caption{padding:10px;font-size:12px;line-height:1.5}.music-disc{width:150px;height:150px;border-radius:50%;margin:30px auto 22px;background:radial-gradient(circle,#29252e 0 8%,#c7b1d6 9% 13%,#51465c 14% 20%,#9d7db6 21% 100%);box-shadow:0 12px 35px #7b648833}.music-title{text-align:center;font-size:17px;font-weight:750}.music-artist{text-align:center;color:var(--muted,#777280);font-size:12px;margin-top:5px}.music-controls{display:flex;justify-content:center;gap:22px;align-items:center;margin:25px}.music-controls button{border:0;border-radius:50%;width:43px;height:43px;font-size:19px;background:var(--card,#fff);color:inherit}.music-controls button.play{background:var(--accent,#7356b7);color:white;width:54px;height:54px}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center;font-size:11px}.calendar-grid span{padding:8px 0;border-radius:8px}.calendar-grid .today{background:var(--accent,#7356b7);color:white}.browser-bar{display:flex;gap:6px;margin-bottom:13px}.browser-bar input{flex:1;min-width:0;border:1px solid var(--line,#e6e2e9);border-radius:10px;padding:10px;background:var(--card,#fff);color:inherit}.browser-hero{background:linear-gradient(145deg,#e6d8fa,#f7dce8);color:#383044;border-radius:17px;padding:20px 14px;text-align:center;margin-bottom:14px}.browser-hero h3{font-size:20px;margin:4px 0 6px}.browser-hero p{font-size:12px;margin:0}.theme-dark{--app-bg:#19181f;--app-text:#f4f1f7;--muted:#aaa4b3;--line:#37333f;--card:#27242e;--input-bg:#2a2731;--bubble-them:#393540;--bubble-me:#315a48;--accent:#bca8f4;--status-color:#fff;--indicator:#fff}.theme-pink{--app-bg:#fff7fa;--app-text:#3e2935;--muted:#987e8b;--line:#f0dce5;--card:#fff;--bubble-them:#f6e4ec;--bubble-me:#f6c7d9;--accent:#c65b8c}.theme-lavender{--app-bg:#f8f5ff;--app-text:#30283e;--muted:#83768f;--line:#e6dcf3;--card:#fff;--bubble-them:#eae2f5;--bubble-me:#d9c9f2;--accent:#8061b4}
+@media(max-width:760px){.studio{padding:17px 12px}.topbar{margin:0 4px 18px}.workspace{grid-template-columns:1fr;gap:18px}.phone-column{position:static}.phone{width:min(100%,340px)}.screen{height:min(690px,78vh);min-height:570px}.editor{padding:19px;border-radius:20px}.phone-hint{margin-bottom:2px}.topbar h1{font-size:25px}}@media(min-width:761px) and (max-height:850px){.screen{height:650px;min-height:550px}}
+
+</style>
+</head>
+<body>
+<main class="studio">
+  <header class="topbar">
+    <div><p class="eyebrow">PERSONAL PLAYGROUND</p><h1>Virtual Phone Studio</h1></div>
+    <button id="resetAll" class="quiet-button" title="Reset semua pengaturan">Reset</button>
+  </header>
+  <div class="workspace">
+    <section class="phone-column">
+      <div class="phone" id="phone">
+        <div class="screen" id="screen">
+          <div class="wallpaper-shade"></div>
+          <div class="statusbar"><span id="statusTime">9:41</span><span class="dynamic-island"></span><span class="status-icons">●●● ▰</span></div>
+          <div class="app-view" id="appView"></div>
+          <div class="home-indicator"></div>
+        </div>
+      </div>
+      <p class="phone-hint">Tap aplikasi untuk membukanya · tombol Home kembali ke layar utama</p>
+    </section>
+    <aside class="editor">
+      <div class="editor-heading"><p class="eyebrow">CONTROL PANEL</p><h2>Customize your phone</h2><p>Ubah tampilan dan isi simulasi. Perubahan tersimpan otomatis di browser ini.</p></div>
+      <div class="control-group">
+        <label for="wallpaperInput">Wallpaper layar utama</label>
+        <input id="wallpaperInput" type="file" accept="image/*">
+        <button id="clearWallpaper" class="secondary">Pakai wallpaper default</button>
+      </div>
+      <div class="control-group">
+        <label for="themeSelect">Tema tampilan</label>
+        <select id="themeSelect"><option value="light">Light</option><option value="dark">Dark</option><option value="pink">Soft pink</option><option value="lavender">Lavender</option></select>
+      </div>
+      <div class="control-group">
+        <label for="clockInput">Jam di status bar</label>
+        <input id="clockInput" type="text" maxlength="5" placeholder="9:41">
+      </div>
+      <div class="control-group">
+        <label for="chatWallpaperInput">Wallpaper chat</label>
+        <input id="chatWallpaperInput" type="file" accept="image/*">
+        <button id="clearChatWallpaper" class="secondary">Hapus wallpaper chat</button>
+      </div>
+      <div class="control-group">
+        <label for="contactName">Nama kontak chat</label>
+        <input id="contactName" type="text" maxlength="40" placeholder="Nama kontak">
+      </div>
+      <div class="control-group">
+        <label for="contactPhoto">Foto profil kontak</label>
+        <input id="contactPhoto" type="file" accept="image/*">
+      </div>
+      <div class="control-group">
+        <label for="contactStatus">Status kontak</label>
+        <input id="contactStatus" type="text" maxlength="50" placeholder="online">
+      </div>
+      <div class="control-group">
+        <label>Tambah pesan contoh</label>
+        <div class="inline-controls"><select id="messageSide"><option value="them">Kontak</option><option value="me">Kamu</option></select><input id="messageText" type="text" maxlength="500" placeholder="Tulis pesan..."></div>
+        <button id="addMessage" class="primary">+ Tambah pesan</button>
+      </div>
+      <div class="control-group">
+        <label>Pesan dalam chat</label>
+        <div id="messageManager" class="message-manager"></div>
+      </div>
+      <div class="control-group">
+        <label for="noteEditor">Isi Notes</label>
+        <textarea id="noteEditor" rows="4" placeholder="Tulis catatan..."></textarea>
+      </div>
+      <p class="privacy-note">🔒 Semua pengaturan disimpan di localStorage perangkat ini. Gambar besar bisa memenuhi ruang penyimpanan browser.</p>
+    </aside>
+  </div>
+  <footer>Made for pretend chats, storyboards, and creative mockups.</footer>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const apps = [
+  {id:'chat',name:'Fake Chat',icon:'💬',color:'linear-gradient(145deg,#76d99b,#28a967)'},
+  {id:'gallery',name:'Gallery',icon:'🌄',color:'linear-gradient(145deg,#8ac9ff,#8b8af0)'},
+  {id:'notes',name:'Notes',icon:'📝',color:'linear-gradient(145deg,#ffe78b,#ffc64b)'},
+  {id:'settings',name:'Settings',icon:'⚙️',color:'linear-gradient(145deg,#c6c8d0,#777b89)'},
+  {id:'instagram',name:'Instagram',icon:'📸',color:'linear-gradient(145deg,#f8bb70,#d54e94,#7758c9)'},
+  {id:'music',name:'Music',icon:'🎵',color:'linear-gradient(145deg,#f9a1b7,#e7506d)'},
+  {id:'calendar',name:'Calendar',icon:'📅',color:'linear-gradient(145deg,#fff,#f3f0f3)'},
+  {id:'browser',name:'Browser',icon:'🧭',color:'linear-gradient(145deg,#9ed9ff,#3d87e8)'}
+];
+const defaults = {
+  wallpaper:'', chatWallpaper:'', theme:'light', clock:'9:41', currentApp:'home',
+  contact:{name:'Alex',status:'online',photo:''},
+  messages:[
+    {id:1,side:'them',text:'kamu udah pulang?',time:'09:38'},
+    {id:2,side:'me',text:'udahh, kenapa?',time:'09:39'},
+    {id:3,side:'them',text:'gapapa, cuma mau ngobrol aja hehe',time:'09:40'},
+    {id:4,side:'me',text:'yaudah sini cerita 😭',time:'09:41'}
+  ],
+  note:'Ide cerita hari ini ✨\\n\\nTulis apa pun di sini...',
+  musicPlaying:false
+};
+let state = loadState();
+let nextId = Math.max(0,...state.messages.map(m=>m.id||0))+1;
+function loadState(){
+  try { return {...structuredClone(defaults),...JSON.parse(localStorage.getItem('virtualPhoneState')||'{}')}; }
+  catch(e){ return structuredClone(defaults); }
+}
+function save(){try{localStorage.setItem('virtualPhoneState',JSON.stringify(state));}catch(e){alert('Penyimpanan penuh. Coba gunakan gambar yang lebih kecil.');}}
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function initials(name){return esc((name||'?').trim().slice(0,1).toUpperCase());}
+function setTheme(){
+  const screen=$('screen');
+  screen.classList.remove('theme-dark','theme-pink','theme-lavender');
+  if(state.theme!=='light')screen.classList.add('theme-'+state.theme);
+  screen.style.backgroundImage=state.wallpaper?`url("${state.wallpaper}")`:'linear-gradient(145deg,#8e9eb8,#d6aebc 52%,#ebd8b9)';
+  $('statusTime').textContent=state.clock||'9:41';
+  $('themeSelect').value=state.theme;
+  $('clockInput').value=state.clock;
+  $('contactName').value=state.contact.name;
+  $('contactStatus').value=state.contact.status;
+  $('noteEditor').value=state.note;
+}
+function iconMarkup(a,small=false){return `<div class="app-icon-wrap" data-open="${a.id}"><div class="app-icon" style="background:${a.color}">${a.icon}</div><div class="app-label">${a.name}</div></div>`;}
+function home(){
+ const date = new Date();
+ const dateString = date.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'});
+ return `<div class="home-screen"><div><div class="date-widget">${esc(dateString)}</div><div class="big-clock">${esc(state.clock||'9:41')}</div></div><div class="app-grid">${apps.map(a=>iconMarkup(a)).join('')}</div><div class="dock">${apps.slice(0,4).map(a=>iconMarkup(a,true)).join('')}</div></div>`;
+}
+function nav(title,action=''){
+ return `<div class="app-nav"><button class="back-btn" data-home>‹ Home</button><span class="app-title">${title}</span><button class="nav-action" ${action?`data-action="${action}"`:''}>${action?'Edit':''}</button></div>`;
+}
+function avatar(){return state.contact.photo?`<img class="avatar" src="${state.contact.photo}" alt="Foto kontak">`:`<div class="avatar">${initials(state.contact.name)}</div>`;}
+function chat(){
+ const bubbles=state.messages.map(m=>`<div class="bubble ${m.side==='me'?'me':'them'}">${esc(m.text)}<span class="bubble-time">${esc(m.time||'09:41')}${m.side==='me'?' ✓✓':''}</span></div>`).join('');
+ return `<div class="app-shell">${nav('Messages')}<div class="app-content"><div class="chat-head">${avatar()}<div><div class="chat-title">${esc(state.contact.name)}</div><div class="chat-status">${esc(state.contact.status||'')}</div></div></div><div class="chat-body" style="${state.chatWallpaper?`background-image:linear-gradient(#ffffff55,#ffffff55),url('${state.chatWallpaper}')`:''}">${bubbles}</div><form class="chat-composer" id="phoneChatForm"><input id="phoneChatInput" maxlength="500" placeholder="iMessage"><button aria-label="Kirim">↑</button></form><p class="subtle">Simulasi lokal · pesan tidak dikirim ke siapa pun</p></div></div>`;
+}
+function gallery(){
+ return `<div class="app-shell">${nav('Photos')}<div class="app-content"><div class="app-card"><h3>Recents</h3><p>Album simulasi. Wallpaper utama dan chat bisa diganti dari panel editor.</p></div><div class="photo-grid">${Array.from({length:15},(_,i)=>`<div class="photo-tile" style="background:${['linear-gradient(135deg,#f7c9d5,#c6c9f4)','linear-gradient(135deg,#f8dfa8,#a7d9cb)','linear-gradient(135deg,#b7c6ec,#efc6a7)'][i%3]}">${['🌷','🌅','☁️','🌊','🧸','🌙','🌼','🎧','🦋'][i%9]}</div>`).join('')}</div></div></div>`;
+}
+function notes(){return `<div class="app-shell">${nav('Notes')}<div class="app-content"><div class="note-page"><h3>📝 My Note</h3><p>${esc(state.note)}</p></div><p class="subtle">Edit catatan dari panel di luar simulasi.</p></div></div>`;}
+function settings(){return `<div class="app-shell">${nav('Settings')}<div class="app-content"><div class="app-card"><h3>Apple ID</h3><p>Virtual User · This is a phone simulation</p></div>${[['Airplane Mode','○'],['Wi-Fi','Connected'],['Bluetooth','On'],['Display & Brightness',state.theme],['Wallpaper',state.wallpaper?'Custom':'Default'],['General','›']].map(([a,b])=>`<div class="settings-row"><span>${a}</span><span class="subtle">${esc(b)}</span></div>`).join('')}<p class="subtle">Gunakan control panel untuk mengganti wallpaper, tema, dan jam.</p></div></div>`;}
+function instagram(){return `<div class="app-shell">${nav('Instagram')}<div class="app-content"><div class="social-header">instagram</div><div class="story-row">${['Your story','mika','juno','sora','nana'].map((n,i)=>`<div class="story"><div class="avatar" style="background:${['#e4c7f4','#f3c9d7','#f2dca8','#b7d8d4','#d4d5f5'][i]}">${i===0?'+':['🌷','🧸','🌙','🦋'][i-1]||'+'}</div>${n}</div>`).join('')}</div><div class="post"><div class="post-head"><div class="avatar">🌸</div>daily.archive</div><div class="post-art">🌸</div><div class="post-caption">♡ 2,481 likes<br><b>daily.archive</b> little moments lately ✨<br><span class="subtle">View all 38 comments</span></div></div><div class="post"><div class="post-head"><div class="avatar">☁️</div>cloudy.days</div><div class="post-art" style="background:linear-gradient(145deg,#a7c5e8,#f5d7d0)">☁️</div><div class="post-caption">♡ 918 likes<br><b>cloudy.days</b> somewhere soft to land.</div></div></div></div>`;}
+function music(){return `<div class="app-shell">${nav('Music')}<div class="app-content"><div class="music-disc"></div><div class="music-title">daydream</div><div class="music-artist">Virtual Playlist · Soft hours</div><div class="music-controls"><button data-music="prev">◀</button><button class="play" data-music="toggle">${state.musicPlaying?'Ⅱ':'▶'}</button><button data-music="next">▶</button></div><div class="app-card"><h3>Up Next</h3><p>01 · daydream<br>02 · afterglow<br>03 · little things</p></div><p class="subtle">Tombol play hanya mengubah animasi simulasi, tidak memutar audio.</p></div></div>`;}
+function calendar(){let d=new Date(),year=d.getFullYear(),month=d.getMonth(),first=new Date(year,month,1).getDay(),days=new Date(year,month+1,0).getDate();let cells=Array.from({length:first},()=>'<span></span>');for(let n=1;n<=days;n++)cells.push(`<span class="${n===d.getDate()?'today':''}">${n}</span>`);return `<div class="app-shell">${nav('Calendar')}<div class="app-content"><div class="app-card"><h3>${d.toLocaleDateString('en-US',{month:'long',year:'numeric'})}</h3><p>Nothing planned. Make it a gentle day ✨</p></div><div class="calendar-grid">${['S','M','T','W','T','F','S'].map(x=>`<b>${x}</b>`).join('')}${cells.join('')}</div></div></div>`;}
+function browser(){return `<div class="app-shell">${nav('Safari')}<div class="app-content"><form id="browserForm" class="browser-bar"><input id="browserInput" placeholder="Search or enter website" value=""><button class="primary">Go</button></form><div class="browser-hero"><div style="font-size:30px">🧭</div><h3>Where to next?</h3><p>A tiny pretend browser for your virtual phone.</p></div><div class="app-card"><h3>Favorites</h3><p>✦ Your creative space<br><br>✦ Moodboard<br><br>✦ Story ideas</p></div><p class="subtle" id="browserResult">Website navigation opens in a new tab.</p></div></div>`;}
+function render(){
+ setTheme();
+ const target=state.currentApp||'home';
+ const views={home,chat,gallery,notes,settings,instagram,music,calendar,browser};
+ $('appView').innerHTML=(views[target]||home)();
+ $('appView').querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',()=>openApp(el.dataset.open)));
+ $('appView').querySelectorAll('[data-home]').forEach(el=>el.addEventListener('click',()=>openApp('home')));
+ const form=$('phoneChatForm');
+ if(form)form.addEventListener('submit',e=>{e.preventDefault();const inp=$('phoneChatInput');if(inp.value.trim()){state.messages.push({id:nextId++,side:'me',text:inp.value.trim(),time:state.clock});save();render();refreshManager();}});
+ const bf=$('browserForm');
+ if(bf)bf.addEventListener('submit',e=>{e.preventDefault();let v=$('browserInput').value.trim();if(v){if(!/^https?:\/\//i.test(v)&&v.includes('.')&&!v.includes(' '))v='https://'+v;else v='https://www.google.com/search?q='+encodeURIComponent(v);window.open(v,'_blank','noopener');}});
+ $('appView').querySelectorAll('[data-music]').forEach(b=>b.addEventListener('click',()=>{state.musicPlaying=b.dataset.music==='toggle'?!state.musicPlaying:state.musicPlaying;save();render();}));
+}
+function openApp(id){state.currentApp=id;save();render();}
+function refreshManager(){
+ $('messageManager').innerHTML=state.messages.map((m,i)=>`<div class="message-row"><small>${m.side==='me'?'Kamu':'Kontak'}</small><span>${esc(m.text)}</span><button data-delete="${m.id}" title="Hapus pesan">×</button></div>`).join('')||'<p class="subtle">Belum ada pesan.</p>';
+ $('messageManager').querySelectorAll('[data-delete]').forEach(b=>b.addEventListener('click',()=>{state.messages=state.messages.filter(m=>m.id!==Number(b.dataset.delete));save();render();refreshManager();}));
+}
+function readImage(file,callback){if(!file)return;const reader=new FileReader();reader.onload=()=>{callback(reader.result);save();render();};reader.readAsDataURL(file);}
+$('wallpaperInput').addEventListener('change',e=>readImage(e.target.files[0],v=>state.wallpaper=v));
+$('chatWallpaperInput').addEventListener('change',e=>readImage(e.target.files[0],v=>state.chatWallpaper=v));
+$('contactPhoto').addEventListener('change',e=>readImage(e.target.files[0],v=>state.contact.photo=v));
+$('clearWallpaper').addEventListener('click',()=>{state.wallpaper='';$('wallpaperInput').value='';save();render();});
+$('clearChatWallpaper').addEventListener('click',()=>{state.chatWallpaper='';$('chatWallpaperInput').value='';save();render();});
+$('themeSelect').addEventListener('change',e=>{state.theme=e.target.value;save();render();});
+$('clockInput').addEventListener('change',e=>{const v=e.target.value.trim();if(/^\d{1,2}:\d{2}$/.test(v)){state.clock=v;save();render();}else{alert('Format jam contoh: 9:41');e.target.value=state.clock;}});
+$('contactName').addEventListener('change',e=>{state.contact.name=e.target.value.trim()||'Contact';save();render();});
+$('contactStatus').addEventListener('change',e=>{state.contact.status=e.target.value;save();render();});
+$('noteEditor').addEventListener('input',e=>{state.note=e.target.value;save();});
+$('addMessage').addEventListener('click',()=>{const text=$('messageText').value.trim();if(!text)return;state.messages.push({id:nextId++,side:$('messageSide').value,text,time:state.clock});$('messageText').value='';save();render();refreshManager();});
+$('messageText').addEventListener('keydown',e=>{if(e.key==='Enter'){$('addMessage').click();}});
+$('resetAll').addEventListener('click',()=>{if(confirm('Reset wallpaper, chat, dan semua pengaturan ke default?')){state=structuredClone(defaults);nextId=5;save();$('wallpaperInput').value='';$('chatWallpaperInput').value='';$('contactPhoto').value='';render();refreshManager();}});
+render();refreshManager();
+
+</script>
+</body>
+</html>
